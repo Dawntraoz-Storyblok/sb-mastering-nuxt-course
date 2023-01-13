@@ -1,4 +1,4 @@
-# Nuxt 3 Minimal Starter
+# Mastering Nuxt 3 course
 
 Look at the [nuxt 3 documentation](https://v3.nuxtjs.org) to learn more.
 
@@ -7,12 +7,6 @@ Look at the [nuxt 3 documentation](https://v3.nuxtjs.org) to learn more.
 Make sure to install the dependencies:
 
 ```bash
-# yarn
-yarn install
-
-# npm
-npm install
-
 # pnpm
 pnpm install --shamefully-hoist
 ```
@@ -22,7 +16,7 @@ pnpm install --shamefully-hoist
 Start the development server on http://localhost:3000
 
 ```bash
-npm run dev
+pnpm run dev
 ```
 
 ## Production
@@ -30,13 +24,35 @@ npm run dev
 Build the application for production:
 
 ```bash
-npm run build
+pnpm run build
 ```
 
 Locally preview production build:
 
 ```bash
-npm run preview
+pnpm run preview
 ```
 
 Checkout the [deployment documentation](https://v3.nuxtjs.org/guide/deploy/presets) for more information.
+
+## Learnings
+
+### Nested Routes
+
+It is possible to display nested routes with `<NuxtPage>`.
+Example: `course.vue` works as a "layout" for the `course` folder. Any `.vue` files inside the `course` folder will be render as children using `<NuxtPage/>` in`course.vue`.
+
+Check the [official nested routes docs](https://nuxt.com/docs/guide/directory-structure/pages#nested-routes).
+
+### Dynamic Routes
+
+- 1 square bracket: dynamic route parameter. Example: `[lessonSlug].vue` or`lesson-[slug].vue`.
+- 2 square brackets: dynamic route optional parameter. Example: `[[parameterSlug]].vue`.
+
+Check the [complete dynamic routes docs](https://nuxt.com/docs/guide/directory-structure/pages#dynamic-routes) for more info or examples.
+
+### Nuxi add command
+
+Help you generates composables, components, layouts, pages, api, middlewares and plugins.
+
+Check the ([official `nuxi add` docs](https://nuxt.com/docs/api/commands/add#nuxi-add)).
