@@ -1,0 +1,15 @@
+{
+  "rules": {
+    "Public" : {
+      ".read" : true,
+    },
+    "Clipboard" : {
+      ".read" : true,
+        ".write" : true
+      },
+    "Snippets" : {
+      ".read" : true,
+        ".write" : true
+    }
+  }
+}
