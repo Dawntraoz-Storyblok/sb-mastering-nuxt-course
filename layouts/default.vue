@@ -1,7 +1,10 @@
 <template>
   <div class="navbar bg-base-100">
     <div class="flex-1">
-      <a class="btn btn-ghost normal-case hover:bg-base-200 text-xl">{{ appConfig.title }}</a>
+        <NuxtLink to="/">
+
+            <a class="btn btn-ghost normal-case hover:bg-base-300 text-xl">{{ appConfig.title }}</a>
+        </NuxtLink>
     </div>
     <div class="flex-none">
       <ThemeSwitcher />
