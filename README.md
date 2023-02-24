@@ -84,3 +84,62 @@ Check the [official state management docs](https://nuxt.com/docs/getting-started
 The `useHead` composable allows you to manage your head tags in a reactive way, powered by `@vueuse/head`.
 
 Check the [official useHead composable docs](https://nuxt.com/docs/getting-started/seo-meta#composable-usehead).
+
+### Error handling
+
+> If you want to go in depth in this topic, check the official guide of [Error Handling in Nuxt 3](https://nuxt.com/docs/getting-started/error-handling).
+
+#### `NuxtErrorBoundary`
+
+We can handle client-side errors using `<NuxtErrorBoundary>`, isolating errors to specific parts of the app.
+
+Check the [official `<NuxtErrorBoundary>` api docs](https://nuxt.com/docs/api/components/nuxt-error-boundary)
+
+#### `createError`
+
+A function available to create an error object with additional metadata meant to be thrown.
+
+```js
+throw createError('Could not update') // Simple usage
+throw createError({ // More specific
+    statusCode: 404,
+    statusMessage: 'Page Not Found'
+  })
+```
+
+- Server-side: trigger a full-screen error page
+- Client-side: throw a non-fatal error (if you want full-screen error add `fatal: true`)
+
+Check the [official `createError` api docs](https://nuxt.com/docs/api/utils/create-error)
+
+#### `useError`
+
+A composable that returns the global Nuxt error, available on both client and server.
+
+Check the [official `useError` api docs](https://nuxt.com/docs/api/composables/use-error/)
+
+#### Clean errors
+
+- Server-side: use `clearError`
+- Client-side: reset the `error` ref from the `<NuxtErrorBoundary>` with `error.value = null` and, in some cases, navigate to a new route to avoid the error again using [`navigateTo`](https://nuxt.com/docs/api/utils/navigate-to). If you choose to navigate always do it before resetting `error`
+
+#### Route validation
+
+Route can handle errors via the `validate` method inside `definePageMeta`.
+
+```js
+definePageMeta({
+  validate({ params }) {
+    const myPage = null;
+    if (!myPage) {
+      return createError({
+        statusCode: 404,
+        message: 'My page is not found',
+      });
+    }
+    return true;
+  },
+});
+```
+
+Check out the [official `definePageMeta` docs](https://nuxt.com/docs/api/utils/define-page-meta) where you can find `validate` defition.
