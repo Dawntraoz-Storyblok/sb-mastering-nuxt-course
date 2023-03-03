@@ -37,14 +37,16 @@ Checkout the [deployment documentation](https://v3.nuxtjs.org/guide/deploy/prese
 
 ## Learnings
 
-### Nested Routes
+### Routes
+
+#### Nested Routes
 
 It is possible to display nested routes with `<NuxtPage>`.
 Example: `course.vue` works as a "layout" for the `course` folder. Any `.vue` files inside the `course` folder will be render as children using `<NuxtPage/>` in`course.vue`.
 
 Check the [official nested routes docs](https://nuxt.com/docs/guide/directory-structure/pages#nested-routes).
 
-### Dynamic Routes
+#### Dynamic Routes
 
 - 1 square bracket: dynamic route parameter. Example: `[lessonSlug].vue` or`lesson-[slug].vue`.
 - 2 square brackets: dynamic route optional parameter. Example: `[[parameterSlug]].vue`.
@@ -143,3 +145,52 @@ definePageMeta({
 ```
 
 Check out the [official `definePageMeta` docs](https://nuxt.com/docs/api/utils/define-page-meta) where you can find `validate` defition.
+
+### Route middlewares
+
+Navigation guards that receive the current route _(from)_ and the next route _(to)_ as arguments, and that can be use to run code before navigating to a route.
+
+Check out the [official route middleware docs](https://nuxt.com/docs/guide/directory-structure/middleware)
+
+#### Inline
+
+Defined in the pages where they are used.
+
+```js
+definePageMeta({
+  middleware: function ({ params }, from) {
+    const myPage = null;
+    if (!myPage) {
+      return abortNavigation(
+        createError({
+          statusCode: 404,
+          message: 'My page is not found',
+        })
+      );
+    }
+  },
+});
+```
+
+#### Named
+
+Placed in the `middleware` folder, automatically loaded via async import when used on a page.
+
+```js
+definePageMeta({
+  middleware: 'auth' // loads middleware/auth.ts
+})
+```
+
+#### Global
+
+Placed in the `middleware` folder with a .global suffix, automatically run on every route change. Example: `middleware/history.global.ts`
+
+#### Helpers - Return options inside a middleware
+
+1. navigateTo(): Redirects/navigates to the given route.
+2. abortNavigation(): Aborts the navigation.
+
+### Modules
+
+- [Supabase Nuxt module](https://supabase.nuxtjs.org/)
